@@ -1,13 +1,14 @@
+import { describe, expect, test, vi } from 'vitest'
+
 import { languageKeys } from '#src/languages/lib/languages.js'
 import { blockIndex } from '#src/frame/middleware/block-robots.js'
 import { get, getDOMCached as getDOM } from '#src/tests/helpers/e2etest.js'
 import Page from '#src/frame/lib/page.js'
-import { jest } from '@jest/globals'
 
 const langs = languageKeys.filter((lang) => lang !== 'en')
 
 describe('frame', () => {
-  jest.setTimeout(60 * 1000)
+  vi.setConfig({ testTimeout: 60 * 1000 })
 
   test.each(langs)('allows crawling of %s pages', async (lang) => {
     expect(blockIndex(`/${lang}/articles/verifying-your-email-address`)).toBe(false)
@@ -99,14 +100,6 @@ describe('release notes', () => {
     const combinations = []
     const prefixes = []
     for (const version of page.applicableVersions) {
-      // Like a chicken-and-egg problem, we can't entirely remove
-      // github-ae from the list of versions because first we
-      // have to stop depending on it and clean up all front matter
-      // and all Liquid. But we also shouldn't depend on testing it
-      // any more since it always redirects to enterprise-cloud.
-      if (version === 'github-ae@latest') {
-        continue
-      }
       const prefix = version.split('@')[0]
       if (prefixes.includes(prefix)) {
         continue
