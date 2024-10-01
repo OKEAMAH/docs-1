@@ -308,7 +308,7 @@
     "slash": "^5.0.0",
     "strip-ansi": "7.1.0",
     "strip-html-comments": "^1.0.0",
-    "styled-components": "^5.3.5",
+    "styled-components": "^6.1.13",
     "swr": "^2.2.4",
     "unified": "^11.0.3",
     "unist-util-visit": "^5.0.0",
